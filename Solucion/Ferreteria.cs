@@ -6,7 +6,7 @@ namespace Solucion
     {
         private Almacen almacen;
         private double precioBase;
-
+        
         public Ferreteria(double anchoInicial, double largoInicial, double precioBase)
         {
             almacen = new Almacen(500);
@@ -14,6 +14,7 @@ namespace Solucion
             almacen.AgregarTabla(new Tabla(anchoInicial, largoInicial, precioBase));
         }
 
+        
         public void ProcesarSolicitud(double anchoSolicitado, double largoSolicitado)
         {
             Tabla tabla = almacen.BuscarTablaAdecuada(anchoSolicitado, largoSolicitado);

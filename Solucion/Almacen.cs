@@ -13,6 +13,7 @@ namespace Solucion
             contador = 0;
         }
 
+        // Quitar
         public void AgregarTabla(Tabla tabla)
         {
             if (contador < tablas.Length)
@@ -21,7 +22,7 @@ namespace Solucion
                 Array.Sort(tablas, 0, contador, Comparer<Tabla>.Create((a, b) => a.Ancho.CompareTo(b.Ancho)));
             }
         }
-
+        // Quitar
         public Tabla BuscarTablaAdecuada(double ancho, double largo)
         {
             foreach (var tabla in tablas)

@@ -15,6 +15,7 @@ namespace Solucion
             Precio = (ancho * largo) * (precioBase / (4 * 6)); // Precio proporcional al área
         }
 
+        // Quitar
         public double CalcularPrecioPorArea(double ancho, double largo)
         {
             double areaSolicitada = ancho * largo;
