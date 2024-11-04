@@ -5,34 +5,36 @@ namespace Solucion
     public class Ferreteria
     {
         private Almacen almacen;
-        private double precioBase;
+        private Tabla estandar;
         
         public Ferreteria(double anchoInicial, double largoInicial, double precioBase)
         {
             almacen = new Almacen(500);
-            this.precioBase = precioBase;
+            estandar = new Tabla(anchoInicial, largoInicial, precioBase);
             almacen.AgregarTabla(new Tabla(anchoInicial, largoInicial, precioBase));
         }
 
         
-        public void ProcesarSolicitud(double anchoSolicitado, double largoSolicitado)
+        public double ProcesarSolicitud(double anchoSolicitado, double largoSolicitado)
         {
-            Tabla tabla = almacen.BuscarTablaAdecuada(anchoSolicitado, largoSolicitado);
-            if (tabla != null)
+            Tabla? tabla = almacen.BuscarTablaAdecuada(anchoSolicitado, largoSolicitado);
+            if (tabla is null)
             {
-                Tabla residual = tabla.Cortar(anchoSolicitado, largoSolicitado);
-                double precio = tabla.CalcularPrecioPorArea(anchoSolicitado, largoSolicitado);
-                Console.WriteLine($"Tabla vendida por {precio} colones.");
-
-                if (residual != null)
+                tabla = new Tabla(estandar.Ancho, estandar.Largo, estandar.Precio);
+                if (tabla.Ancho < anchoSolicitado || tabla.Largo < largoSolicitado)
                 {
-                    almacen.AgregarTabla(residual);
+                    almacen.AgregarTabla(tabla);
+                    return -1;
                 }
             }
-            else
-            {
-                Console.WriteLine("No hay tablas disponibles para las dimensiones solicitadas.");
-            }
+            
+            var residuales = tabla.Cortar(anchoSolicitado, largoSolicitado);
+            
+            foreach(var residual in residuales)
+                almacen.AgregarTabla(residual);
+            
+            double precio = tabla.CalcularPrecioPorArea(anchoSolicitado, largoSolicitado);
+            return precio;
         }
     }
 }

@@ -4,31 +4,30 @@ namespace Solucion
 {
     public class Almacen
     {
-        private Tabla[] tablas;
-        private int contador;
+        private List<Tabla> tablas;
 
         public Almacen(int capacidadMaxima)
         {
-            tablas = new Tabla[capacidadMaxima];
-            contador = 0;
+            tablas = new (capacidadMaxima);
         }
 
         // Quitar
         public void AgregarTabla(Tabla tabla)
         {
-            if (contador < tablas.Length)
+            if (tablas.Count < tablas.Capacity)
             {
-                tablas[contador++] = tabla;
-                Array.Sort(tablas, 0, contador, Comparer<Tabla>.Create((a, b) => a.Ancho.CompareTo(b.Ancho)));
+                tablas.Add(tabla);
+                tablas.Sort();
             }
         }
         // Quitar
-        public Tabla BuscarTablaAdecuada(double ancho, double largo)
+        public Tabla? BuscarTablaAdecuada(double ancho, double largo)
         {
             foreach (var tabla in tablas)
             {
                 if (tabla != null && tabla.Ancho >= ancho && tabla.Largo >= largo)
                 {
+                    tablas.Remove(tabla);
                     return tabla;
                 }
             }
