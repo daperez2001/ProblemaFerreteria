@@ -31,6 +31,11 @@ public class TestsFerreteria
         tablas.Add(new TestTabla(70, 70, 49000));
         tablas.Add(new TestTabla(50, 40, 20000));
         yield return new TestFerreteria(100, 100, 10, tablas);
+        // Caso donde la tabla es del mismo tamano que la estandar
+        tablas.Clear();
+        tablas.Add(new TestTabla(100, 100, 100000));
+        tablas.Add(new TestTabla(50, 50, 25000));
+        yield return new TestFerreteria(100, 100, 10, tablas);
     }
 
     [Test]
